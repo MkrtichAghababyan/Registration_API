@@ -12,10 +12,6 @@ namespace Registration.Services
         }
         public User Register(User user)
         {
-            if (user.Password != user.PasswordCheck)
-            {
-                return null;
-            }
             var promocodes = _context.Promocodes.Where(x => x.Promocode1 == user.Promocode);
             if (promocodes.Any())
             {
@@ -47,14 +43,10 @@ namespace Registration.Services
             }
             return null;
         }
-        public List<User> UpdateUser(string email, string password, User user)
+        public IEnumerable<User> UpdateUser(string email, string password, User user)
         {
             var valid = _context.Users.ToList().Find(x => x.Password == password && x.Email == email);
             if (valid == null)
-            {
-                return null;
-            }
-            if (user.Password != user.PasswordCheck)
             {
                 return null;
             }
@@ -77,7 +69,11 @@ namespace Registration.Services
             valid.RoleId = user.RoleId;
             valid.Promocode = user.Promocode;
             _context.SaveChanges();
-            var  resu = _context.Users.ToList();
+            if (_roleid == Convert.ToInt16(Roles.Admin))
+            {
+                return _context.Users.ToList();
+            }
+            var  resu = _context.Users.ToList().Where(x=>x.Id==valid.Id);
             return resu;
         }
         public string DeleteUser(string email,string password)

@@ -15,11 +15,13 @@ public partial class User
     public int Id { get; set; }
 
     [StringLength(50)]
+    [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please, use letters in the first name. Digits are not allowed.")]
     public string FirstName { get; set; }
 
     [StringLength(50)]
+    [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please, use letters in the first name. Digits are not allowed.")]
     public string LastName { get; set; }
-
+    [Range(12, 120)]
     public byte? Age { get; set; }
 
     [StringLength(50)]
@@ -29,15 +31,15 @@ public partial class User
     [EmailAddress(ErrorMessage ="Incorrect Email")]
     public string Email { get; set; }
 
-    //[Range(6,13,ErrorMessage ="Password Should Be In Range Of 6 And 13")]
-    [StringLength(13)]
+    [StringLength(13, ErrorMessage="Password Lenght Should Be between 6 and 13",MinimumLength = 6)]
     public string Password { get; set; }
 
-    //[Range(6, 13, ErrorMessage = "Password Should Be In Range Of 6 And 13")]
     [StringLength(13)]
+    [Compare("Password",ErrorMessage ="Password Doesnt Match")]
     public string PasswordCheck { get; set; }
 
     [StringLength(20)]
+    [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$", ErrorMessage = "Please, use numbers in the phone number. Letters are not allowed.")]
     public string PhoneNumber { get; set; }
 
     [StringLength(5)]

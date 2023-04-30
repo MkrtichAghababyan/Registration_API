@@ -1,7 +1,10 @@
-
+﻿
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore.Internal;
 using Registration.Models;
 using Registration.Services;
+using Serilog;
+using System.IO;
 
 namespace Registration
 {
@@ -17,8 +20,18 @@ namespace Registration
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IRegisterService,RegisterService>();
+            builder.Services.AddScoped<IRegisterService, RegisterService>();
             builder.Services.AddSqlServer<RegistrationContext>(builder.Configuration.GetConnectionString("Connect"));
+            #region logginginconsole
+            //builder.Services.AddHttpLogging(httpLogging =>
+            //{
+            //    httpLogging.LoggingFields = HttpLoggingFields.All;
+            //});
+            #endregion
+
+
+            var _logger = new LoggerConfiguration().WriteTo.File("C:\\Users\\user\\OneDrive\\Рабочий стол\\loggs-.log", rollingInterval: RollingInterval.Day).CreateLogger();
+            builder.Logging.AddSerilog(_logger);
 
             var app = builder.Build();
 
