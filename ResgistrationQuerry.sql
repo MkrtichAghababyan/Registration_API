@@ -1,11 +1,3 @@
---drop table Rates
---create table Rates
---(
---Id int identity primary key(Id),
---CurrencyName nvarchar(255),
---CurrencyValue money
---)
-
 create database Registration
 use Registration;
 create Table Users
