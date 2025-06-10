@@ -7,7 +7,7 @@
 --)
 
 create database Registration
-
+use Registration;
 create Table Users
 (
 Id int identity primary key(Id),

@@ -32,9 +32,8 @@ namespace Registration
 
             var _logger = new LoggerConfiguration().WriteTo.File("C:\\Users\\user\\OneDrive\\Рабочий стол\\loggs-.log", rollingInterval: RollingInterval.Day).CreateLogger();
             builder.Logging.AddSerilog(_logger);
-
+            
             var app = builder.Build();
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -44,6 +43,8 @@ namespace Registration
 
             app.UseHttpsRedirection();
 
+            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
             app.UseAuthorization();
 
 

@@ -49,5 +49,5 @@ public partial class User
 
     [ForeignKey("RoleId")]
     [InverseProperty("Users")]
-    public virtual Role Role { get; set; }
+    public virtual Role Role { get; set; }//anpayman null uxarki
 }

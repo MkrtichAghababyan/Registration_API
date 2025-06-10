@@ -18,8 +18,8 @@ namespace Registration.Controllers
             _registerservice = registerservice;
             _logger = logger;
         }
-        [HttpPost]
-        public async Task<ActionResult<User>> Register(User user)
+        [HttpPost("Post")]
+        public async Task<ActionResult<User>> Register([FromBody]User user)
         {
             //role:null urish dzev chi ashxatum
             _logger.LogInformation("|Log ||Testing");
@@ -30,7 +30,7 @@ namespace Registration.Controllers
             }
             return Ok(result);
         }
-        [HttpGet("{email},{password}")]
+        [HttpGet("Signin{email},{password}")]
         public async Task<ActionResult<IEnumerable<User>>> Singin(string email, string password, string? promocode)
         {
             _logger.LogInformation("Logs For Signin");
@@ -41,7 +41,7 @@ namespace Registration.Controllers
             }
             return Ok(result);
         }
-        [HttpPut("{email},{password}")]
+        [HttpPut("Update{email},{password}")]
         public async Task<ActionResult<IEnumerable<User>>> UpdateUser(string email, string password,User user)
         {
             _logger.LogInformation("Logs For UpdateUser");
@@ -52,7 +52,7 @@ namespace Registration.Controllers
             }
             return Ok(result);
         }
-        [HttpDelete("{email},{password}")]
+        [HttpDelete("Delete{email},{password}")]
         public async Task<ActionResult<string>> DeleteUser(string email,string password)
         {
             _logger.LogInformation("Logs For DeleteUser");
@@ -63,5 +63,6 @@ namespace Registration.Controllers
             }
             return Ok(result);
         }
+        
     }
 }
